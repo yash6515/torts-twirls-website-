@@ -1,1 +1,1 @@
-npm WARN ERESOLVE overriding peer dependency
+legacy-peer-deps=true
