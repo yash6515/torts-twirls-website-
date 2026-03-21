@@ -178,23 +178,8 @@ const LoginPage = () => {
           </div>
 
           {/* Demo credentials */}
-          <div className="mt-8 p-4 bg-light-beige rounded-2xl border border-sand/60">
-            <p className="text-[0.7rem] font-sans font-semibold text-deep-brown uppercase tracking-wider mb-2.5">Demo Credentials</p>
-            <div className="space-y-1.5">
-              <button
-                onClick={() => setForm({ email: 'user@tortsandtwirls.com', password: 'user123456' })}
-                className="w-full text-left text-xs font-sans text-warm-gray hover:text-deep-brown transition-colors py-1.5 px-2 rounded-lg hover:bg-sand/50"
-              >
-                👤 User: user@tortsandtwirls.com / user123456
-              </button>
-              <button
-                onClick={() => setForm({ email: 'admin@tortsandtwirls.com', password: 'admin123456' })}
-                className="w-full text-left text-xs font-sans text-warm-gray hover:text-deep-brown transition-colors py-1.5 px-2 rounded-lg hover:bg-sand/50"
-              >
-                ⚙️ Admin: admin@tortsandtwirls.com / admin123456
-              </button>
-            </div>
-          </div>
+          
+          
         </div>
       </div>
     </div>
