@@ -118,9 +118,9 @@ const LoginPage = () => {
                 <label className="block text-[0.72rem] font-sans font-medium text-deep-brown uppercase tracking-[0.12em]">
                   Password
                 </label>
-                <button type="button" className="text-xs text-taupe hover:text-gold transition-colors font-sans">
+                <Link to="/forgot-password" className="text-xs text-taupe hover:text-gold transition-colors font-sans">
                   Forgot password?
-                </button>
+                </Link>
               </div>
               <div className="relative">
                 <input
