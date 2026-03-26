@@ -28,7 +28,7 @@ const LoginPage = () => {
     try {
       const res = await loginUser(form);
       login(res.data.token, res.data.user);
-      toast.success(`Welcome back, ${res.data.user.name.split(' ')[0]}! 👋`);
+      toast.success(`Welcome back, ${res.data.user.name.split(' ')[0]}!`);
       navigate(from, { replace: true });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
@@ -38,55 +38,91 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream flex overflow-hidden">
-      {/* Left panel — decorative */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col items-center justify-center"
-        style={{ background: 'linear-gradient(155deg, #1B4332 0%, #0D2B1C 100%)' }}>
+    <div className="min-h-screen flex overflow-hidden">
 
-        {/* Decorative grid lines */}
-        <div className="absolute inset-0 opacity-10">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="absolute bg-cream w-px top-0 bottom-0" style={{ left: `${(i + 1) * 12.5}%` }} />
-          ))}
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="absolute bg-cream h-px left-0 right-0" style={{ top: `${(i + 1) * 12.5}%` }} />
-          ))}
-        </div>
+      {/* ── Left: Image Panel ── */}
+      <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden">
+        {/* Background image with Ken Burns */}
+        <img
+          src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1400&auto=format&fit=crop&q=80"
+          alt="Luxury bedding"
+          className="absolute inset-0 w-full h-full object-cover ken-burns"
+          onError={e => { e.target.src = 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1400'; }}
+        />
+        {/* Gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-charcoal/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/30 to-transparent" />
 
-        {/* Blobs */}
-        <div className="absolute w-80 h-80 bg-gold/15 rounded-full blur-3xl blob top-1/4 -left-20" />
-        <div className="absolute w-60 h-60 bg-taupe/20 rounded-full blur-3xl blob-delay bottom-1/4 right-0" />
-
-        <div className="relative z-10 text-center px-12">
-          <span className="font-display text-cream/30 text-[8rem] leading-none block mb-0 select-none" style={{ fontStyle: 'italic' }}>"</span>
-          <p className="font-display text-[1.8rem] text-cream leading-snug mb-6 -mt-6" style={{ fontStyle: 'italic' }}>
-            Sleep is the golden chain that ties health and our bodies together.
-          </p>
-          <p className="font-sans text-cream/50 text-sm">— Thomas Dekker</p>
-
-          <div className="mt-16 flex items-center justify-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-deep-brown/60 border border-cream/20 overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=100" alt="" className="w-full h-full object-cover opacity-60" />
-            </div>
-            <div className="text-left">
-              <p className="text-cream text-sm font-sans font-medium">Torts & Twirls</p>
-              <p className="text-cream/50 text-xs font-sans">Premium Bedsheet Collection</p>
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-between p-10 xl:p-14 w-full">
+          {/* Logo top */}
+          <div className="flex items-center gap-3">
+            <img src="/logo.svg" alt="T&T" className="w-12 h-14 drop-shadow-lg" />
+            <div>
+              <p className="font-display text-cream text-lg italic leading-tight">Torts <span className="text-accent-gold">&</span> Twirls</p>
+              <p className="text-cream/40 text-[0.6rem] font-sans uppercase tracking-[0.2em]">India</p>
             </div>
           </div>
+
+          {/* Center quote */}
+          <div className="max-w-lg">
+            <p className="font-display text-cream/20 text-[7rem] leading-none select-none -mb-10" style={{ fontStyle: 'italic' }}>&ldquo;</p>
+            <p className="font-display text-[2.5rem] xl:text-[3rem] text-cream leading-[1.15] mb-6" style={{ fontStyle: 'italic' }}>
+              The luxury of
+              <br />
+              <span className="gold-text glow-pulse">better sleep.</span>
+            </p>
+            <p className="font-sans text-cream/50 text-sm leading-relaxed max-w-sm">
+              Premium bedsheets woven with care from India's finest long-staple cotton. Experience the difference.
+            </p>
+          </div>
+
+          {/* Bottom stats */}
+          <div className="flex items-center gap-8">
+            {[
+              { val: '5,000+', label: 'Happy Customers' },
+              { val: '4.9 ★', label: 'Average Rating' },
+              { val: '200+', label: 'Unique Designs' },
+            ].map((s, i) => (
+              <div key={i}>
+                <p className="font-display text-xl text-cream leading-none">{s.val}</p>
+                <p className="text-cream/40 text-[0.65rem] font-sans uppercase tracking-wider mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Floating decorative elements */}
+        <div className="absolute bottom-20 right-10 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-5 py-3.5 animate-float z-20">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-rose-primary/80 flex items-center justify-center text-xs text-white font-medium font-sans">P</div>
+            <div>
+              <p className="text-cream text-xs font-sans font-medium">Priya S.</p>
+              <span className="flex gap-0.5">
+                {[1,2,3,4,5].map(i => <svg key={i} className="w-2.5 h-2.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>)}
+              </span>
+            </div>
+          </div>
+          <p className="text-cream/70 text-[0.65rem] font-sans italic mt-1.5">"Like sleeping on a cloud!"</p>
         </div>
       </div>
 
-      {/* Right panel — form */}
-      <div className="flex-1 flex items-center justify-center px-6 py-16">
+      {/* ── Right: Form Panel ── */}
+      <div className="flex-1 flex items-center justify-center px-6 sm:px-12 py-16 bg-cream relative">
+        {/* Subtle decorative bg */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blush/40 rounded-full blur-3xl opacity-40 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-rose-mist/40 rounded-full blur-3xl opacity-50 pointer-events-none" />
+
         <div
-          className={`w-full max-w-[400px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`w-full max-w-[420px] relative z-10 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          {/* Logo */}
-          <Link to="/" className="block mb-10">
-            <span className="font-display text-3xl text-deep-brown italic font-normal tracking-wide">
-              Torts <span className="text-gold">&</span> Twirls
+          {/* Logo for mobile */}
+          <Link to="/" className="flex items-center gap-3 mb-10">
+            <img src="/logo.svg" alt="T&T" className="w-10 h-12" />
+            <span className="font-display text-2xl text-deep-brown italic tracking-wide">
+              Torts <span className="text-accent-gold">&</span> Twirls
             </span>
           </Link>
 
@@ -98,38 +134,52 @@ const LoginPage = () => {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
+            {/* Email */}
+            <div className={`transition-all duration-500 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <label className="block text-[0.72rem] font-sans font-medium text-deep-brown uppercase tracking-[0.12em] mb-2">
                 Email Address
               </label>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                className="input-luxury"
-                required
-              />
+              <div className="relative group">
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-taupe group-focus-within:text-rose-primary transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                  </svg>
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                  className="input-luxury pl-10"
+                  required
+                />
+              </div>
             </div>
 
-            <div>
+            {/* Password */}
+            <div className={`transition-all duration-500 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
               <div className="flex items-center justify-between mb-2">
                 <label className="block text-[0.72rem] font-sans font-medium text-deep-brown uppercase tracking-[0.12em]">
                   Password
                 </label>
-                <Link to="/forgot-password" className="text-xs text-taupe hover:text-gold transition-colors font-sans">
+                <Link to="/forgot-password" className="text-xs text-taupe hover:text-accent-gold transition-colors font-sans">
                   Forgot password?
                 </Link>
               </div>
-              <div className="relative">
+              <div className="relative group">
+                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-taupe group-focus-within:text-rose-primary transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                  </svg>
+                </div>
                 <input
                   type={showPw ? 'text' : 'password'}
                   name="password"
                   value={form.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="input-luxury pr-12"
+                  className="input-luxury pl-10 pr-12"
                   required
                 />
                 <button
@@ -147,39 +197,53 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary w-full py-4 text-[0.9rem] mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
-                  Signing in...
-                </span>
-              ) : 'Sign In →'}
-            </button>
+            {/* Submit */}
+            <div className={`transition-all duration-500 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <button
+                type="submit"
+                disabled={loading}
+                className="btn-primary w-full py-4 text-[0.9rem] mt-2 disabled:opacity-60 disabled:cursor-not-allowed group"
+              >
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Signing in...
+                  </span>
+                ) : (
+                  <>
+                    Sign In
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </>
+                )}
+              </button>
+            </div>
           </form>
 
-          <div className="divider-gold my-8">
+          <div className={`divider-gold my-8 transition-all duration-500 delay-[350ms] ${mounted ? 'opacity-100' : 'opacity-0'}`}>
             <span className="text-taupe text-xs font-sans px-2">or</span>
           </div>
 
-          <div className="text-center">
+          <div className={`text-center transition-all duration-500 delay-[400ms] ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <p className="text-sm font-sans text-warm-gray">
               Don't have an account?{' '}
-              <Link to="/register" className="text-deep-brown font-medium hover:text-gold transition-colors link-underline">
+              <Link to="/register" className="text-deep-brown font-medium hover:text-accent-gold transition-colors link-underline">
                 Create one
               </Link>
             </p>
           </div>
 
-          {/* Demo credentials */}
-          
-          
+          {/* Security badge */}
+          <div className={`mt-10 flex items-center justify-center gap-2 transition-all duration-500 delay-[450ms] ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+            <svg className="w-3.5 h-3.5 text-sage" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+            <p className="text-[0.7rem] font-sans text-taupe">Secured with 256-bit SSL encryption</p>
+          </div>
         </div>
       </div>
     </div>
