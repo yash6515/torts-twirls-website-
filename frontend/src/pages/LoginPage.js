@@ -54,26 +54,28 @@ const LoginPage = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-charcoal/30 to-transparent" />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col justify-between p-10 xl:p-14 w-full">
+        <div className="relative z-10 flex flex-col justify-between p-14 xl:p-20 w-full">
           {/* Logo top */}
           <div className="flex items-center gap-3">
-            <img src="/logo.svg" alt="T&T" className="w-12 h-14 drop-shadow-lg" />
+            <div className="w-14 h-16 flex-shrink-0 overflow-hidden">
+              <img src="/logo.svg" alt="T&T" className="w-full h-full object-contain drop-shadow-lg" />
+            </div>
             <div>
-              <p className="font-display text-cream text-lg italic leading-tight">Torts <span className="text-accent-gold">&</span> Twirls</p>
+              <p className="font-display text-cream text-lg italic leading-tight">Torts <span className="text-accent-gold">&amp;</span> Twirls</p>
               <p className="text-cream/40 text-[0.6rem] font-sans uppercase tracking-[0.2em]">India</p>
             </div>
           </div>
 
           {/* Center quote */}
-          <div className="max-w-lg">
-            <p className="font-display text-cream/20 text-[7rem] leading-none select-none -mb-10" style={{ fontStyle: 'italic' }}>&ldquo;</p>
-            <p className="font-display text-[2.5rem] xl:text-[3rem] text-cream leading-[1.15] mb-6" style={{ fontStyle: 'italic' }}>
+          <div className="max-w-md">
+            <p className="font-display text-cream/15 text-[5rem] leading-none select-none -mb-6" style={{ fontStyle: 'italic' }}>&ldquo;</p>
+            <p className="font-display text-[2.2rem] xl:text-[2.8rem] text-cream leading-[1.15] mb-6" style={{ fontStyle: 'italic' }}>
               The luxury of
               <br />
               <span className="gold-text glow-pulse">better sleep.</span>
             </p>
             <p className="font-sans text-cream/50 text-sm leading-relaxed max-w-sm">
-              Premium bedsheets woven with care from India's finest long-staple cotton. Experience the difference.
+              Premium bedsheets woven with care from India&apos;s finest long-staple cotton. Experience the difference.
             </p>
           </div>
 
@@ -120,9 +122,11 @@ const LoginPage = () => {
         >
           {/* Logo for mobile */}
           <Link to="/" className="flex items-center gap-3 mb-10">
-            <img src="/logo.svg" alt="T&T" className="w-10 h-12" />
+            <div className="w-11 h-13 flex-shrink-0 overflow-hidden">
+              <img src="/logo.svg" alt="T&T" className="w-full h-full object-contain" />
+            </div>
             <span className="font-display text-2xl text-deep-brown italic tracking-wide">
-              Torts <span className="text-accent-gold">&</span> Twirls
+              Torts <span className="text-accent-gold">&amp;</span> Twirls
             </span>
           </Link>
 
@@ -140,7 +144,7 @@ const LoginPage = () => {
                 Email Address
               </label>
               <div className="relative group">
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-taupe group-focus-within:text-rose-primary transition-colors">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-taupe group-focus-within:text-rose-primary transition-colors">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                   </svg>
@@ -151,7 +155,7 @@ const LoginPage = () => {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="you@example.com"
-                  className="input-luxury pl-10"
+                  className="input-luxury pl-12"
                   required
                 />
               </div>
@@ -168,7 +172,7 @@ const LoginPage = () => {
                 </Link>
               </div>
               <div className="relative group">
-                <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-taupe group-focus-within:text-rose-primary transition-colors">
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-taupe group-focus-within:text-rose-primary transition-colors">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                   </svg>
@@ -179,7 +183,7 @@ const LoginPage = () => {
                   value={form.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="input-luxury pl-10 pr-12"
+                  className="input-luxury pl-12 pr-14"
                   required
                 />
                 <button
