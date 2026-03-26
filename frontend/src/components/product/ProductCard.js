@@ -24,6 +24,8 @@ const colorHexMap = {
   'Navy': '#1B2A4A', 'Sage Green': '#87A878', 'Olive': '#708238',
   'Pearl White': '#F0EAD6', 'Dusty Blue': '#7A99AA', 'Steel Blue': '#4E7BA0',
   'Terracotta': '#C9735A', 'Rust': '#A33B1F', 'Brown': '#7D4427',
+  'Chocolate': '#7C2D12', 'Vanilla': '#F5E6DC', 'Strawberry': '#FC5A8D',
+  'Red Velvet': '#BE123C', 'Caramel': '#C4A882',
 };
 
 const ProductCard = ({ product }) => {
@@ -43,7 +45,7 @@ const ProductCard = ({ product }) => {
     e.stopPropagation();
     if (adding || product.stock === 0) return;
     setAdding(true);
-    await addToCart(product._id, 1, product.size?.[0] || 'queen', product.color?.[0] || '');
+    await addToCart(product._id, 1, product.size?.[0] || '', product.color?.[0] || '');
     setTimeout(() => setAdding(false), 800);
   };
 
@@ -56,11 +58,11 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-card bg-white rounded-2xl overflow-hidden group relative shadow-card">
       {/* Image area */}
-      <div className="product-image-wrap aspect-[4/3] bg-light-beige relative">
+      <div className="product-image-wrap aspect-[3/4] bg-light-beige relative">
         <Link to={`/products/${product._id}`} className="block w-full h-full">
           {!imageLoaded && <div className="skeleton absolute inset-0 rounded-none" />}
           <img
-            src={product.images?.[0] || 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600'}
+            src={product.images?.[0] || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600'}
             alt={product.name}
             className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
             loading="lazy"
@@ -69,17 +71,17 @@ const ProductCard = ({ product }) => {
         </Link>
 
         {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-deep-brown/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-chocolate/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {discountPct > 0 && (
-            <span className="bg-rose-400 text-white text-[0.68rem] px-2.5 py-1 rounded-full font-sans font-semibold tracking-wide shadow-sm">
+            <span className="bg-rose-primary text-white text-[0.68rem] px-2.5 py-1 rounded-full font-sans font-semibold tracking-wide shadow-sm">
               −{discountPct}%
             </span>
           )}
           {product.isFeatured && !discountPct && (
-            <span className="bg-gold text-white text-[0.68rem] px-2.5 py-1 rounded-full font-sans font-semibold tracking-wide shadow-sm">
+            <span className="bg-chocolate text-white text-[0.68rem] px-2.5 py-1 rounded-full font-sans font-semibold tracking-wide shadow-sm">
               ✦ Featured
             </span>
           )}
@@ -101,7 +103,7 @@ const ProductCard = ({ product }) => {
           aria-label="Toggle wishlist"
         >
           <svg
-            className={`w-4 h-4 transition-all duration-300 ${inWishlist ? 'text-rose-500 fill-rose-500 scale-110' : 'text-warm-gray'}`}
+            className={`w-4 h-4 transition-all duration-300 ${inWishlist ? 'text-rose-primary fill-rose-primary scale-110' : 'text-warm-gray'}`}
             fill={inWishlist ? 'currentColor' : 'none'}
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -115,12 +117,12 @@ const ProductCard = ({ product }) => {
           <button
             onClick={handleAddToCart}
             disabled={product.stock === 0 || adding}
-            className={`w-full py-3.5 text-[0.8rem] font-sans font-medium tracking-wide transition-all duration-200 ${
+            className={`w-full py-3 sm:py-3.5 text-[0.8rem] font-sans font-medium tracking-wide transition-all duration-200 ${
               product.stock === 0
                 ? 'bg-warm-gray/80 text-white cursor-not-allowed'
                 : adding
                   ? 'bg-sage text-white'
-                  : 'bg-deep-brown/92 text-cream hover:bg-deep-brown backdrop-blur-sm'
+                  : 'bg-deep-brown text-white hover:bg-rose-primary'
             }`}
           >
             {product.stock === 0 ? 'Out of Stock' : adding ? '✓ Added!' : 'Quick Add to Cart'}
@@ -129,10 +131,10 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Info section */}
-      <div className="p-4 pb-5">
+      <div className="p-3 sm:p-4 pb-4 sm:pb-5">
         <div className="flex items-start justify-between gap-2 mb-1">
           <Link to={`/products/${product._id}`} className="flex-1 group/title">
-            <h3 className="font-serif text-deep-brown text-[0.9rem] font-medium leading-snug line-clamp-2 group-hover/title:text-warm-gray transition-colors duration-200">
+            <h3 className="font-serif text-deep-brown text-[0.85rem] sm:text-[0.9rem] font-medium leading-snug line-clamp-2 group-hover/title:text-rose-primary transition-colors duration-200">
               {product.name}
             </h3>
           </Link>
@@ -142,7 +144,7 @@ const ProductCard = ({ product }) => {
           {product.category}{product.fabric ? ` · ${product.fabric}` : ''}
         </p>
 
-        <div className="flex items-center gap-1.5 mb-3.5">
+        <div className="flex items-center gap-1.5 mb-3 sm:mb-3.5">
           <StarRating rating={product.rating} size="sm" />
           <span className="text-[0.72rem] text-warm-gray font-sans">
             {product.rating ? `${product.rating}` : '—'}
@@ -152,7 +154,7 @@ const ProductCard = ({ product }) => {
 
         <div className="flex items-center justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="font-sans font-semibold text-deep-brown text-[1.05rem]">
+            <span className="font-sans font-semibold text-deep-brown text-[1rem] sm:text-[1.05rem]">
               ₹{displayPrice.toLocaleString('en-IN')}
             </span>
             {product.discountPrice > 0 && (
@@ -169,8 +171,8 @@ const ProductCard = ({ product }) => {
                 <div
                   key={i}
                   title={c}
-                  className="w-3.5 h-3.5 rounded-full border border-sand ring-1 ring-offset-1 ring-transparent hover:ring-taupe transition-all duration-200 cursor-pointer"
-                  style={{ backgroundColor: colorHexMap[c] || '#E8DDD0' }}
+                  className="w-3.5 h-3.5 rounded-full border border-sand ring-1 ring-offset-1 ring-transparent hover:ring-rose-primary/50 transition-all duration-200 cursor-pointer"
+                  style={{ backgroundColor: colorHexMap[c] || '#F5E6DC' }}
                 />
               ))}
               {product.color.length > 4 && (

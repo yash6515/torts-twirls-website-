@@ -60,6 +60,7 @@ export const createOrder         = (data) => API.post('/orders', data);
 export const getMyOrders         = ()     => API.get('/orders/my');
 export const getOrderById        = (id)   => API.get(`/orders/${id}`);
 export const updateOrderPayment  = (id, data) => API.put(`/orders/${id}/pay`, data);
+export const requestOrderReturn  = (id, data) => API.post(`/orders/${id}/return`, data);
 
 /* ── WISHLIST ── */
 export const getWishlist    = ()          => API.get('/wishlist');
@@ -83,6 +84,7 @@ export const getAdminOrders        = (params)     => API.get('/admin/orders', { 
 export const getAdminOrderById     = (id)         => API.get(`/admin/orders/${id}`);
 export const updateOrderStatus     = (id, data)   => API.put(`/admin/orders/${id}/status`, data);
 export const updateShippingDetails = (id, data)   => API.put(`/admin/orders/${id}/shipping`, data);
+export const processOrderReturn    = (id, data)   => API.patch(`/admin/orders/${id}/return`, data);
 
 /* ── ADMIN – Users ── */
 export const getAdminUsers            = (params)     => API.get('/admin/users', { params });

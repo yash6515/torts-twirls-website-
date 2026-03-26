@@ -30,6 +30,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminOrders from './pages/admin/AdminOrders';
 import AdminProductForm from './pages/admin/AdminProductForm';
+import AdminUsers from './pages/admin/AdminUsers';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
                   <Route path="/admin/products/new" element={<AdminRoute><AdminProductForm /></AdminRoute>} />
                   <Route path="/admin/products/:id/edit" element={<AdminRoute><AdminProductForm /></AdminRoute>} />
                   <Route path="/admin/orders" element={<AdminRoute><AdminOrders /></AdminRoute>} />
+                  <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
 
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>

@@ -134,26 +134,36 @@ const forgotPassword = async (req, res) => {
 
     // Send email if SMTP is configured, otherwise fall back to dev mode
     if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-      await sendEmail({
-        to: user.email,
-        subject: 'Torts & Twirls — Password Reset',
-        html: `
-          <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #FAF8F5; border-radius: 8px;">
-            <h2 style="color: #2C2420; margin-bottom: 16px;">Reset Your Password</h2>
-            <p style="color: #6B5E54; font-size: 14px; line-height: 1.6;">
-              Hi ${user.name.split(' ')[0]}, we received a request to reset your password.
-              Click the button below to choose a new one. This link expires in 30 minutes.
-            </p>
-            <a href="${resetUrl}" style="display: inline-block; margin: 24px 0; padding: 14px 28px; background: #2C2420; color: #FAF8F5; text-decoration: none; border-radius: 6px; font-size: 14px;">
-              Reset Password
-            </a>
-            <p style="color: #9B8E82; font-size: 12px; line-height: 1.5;">
-              If you didn't request this, you can safely ignore this email.<br/>
-              Or copy this link: ${resetUrl}
-            </p>
-          </div>
-        `,
-      });
+      try {
+        await sendEmail({
+          to: user.email,
+          subject: 'Torts & Twirls — Password Reset',
+          html: `
+            <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #FAFAF7; border-radius: 12px;">
+              <div style="text-align: center; margin-bottom: 24px;">
+                <div style="display: inline-block; background: #1B4332; color: #FAFAF7; font-family: Georgia, serif; font-style: italic; font-size: 20px; padding: 12px 20px; border-radius: 8px;">T&T</div>
+              </div>
+              <h2 style="color: #1A2316; margin-bottom: 16px; font-family: Georgia, serif;">Reset Your Password</h2>
+              <p style="color: #6B5E4E; font-size: 14px; line-height: 1.6;">
+                Hi ${user.name.split(' ')[0]}, we received a request to reset your password.
+                Click the button below to choose a new one. This link expires in <strong>30 minutes</strong>.
+              </p>
+              <a href="${resetUrl}" style="display: inline-block; margin: 24px 0; padding: 14px 32px; background: #1B4332; color: #FAFAF7; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500;">
+                Reset Password →
+              </a>
+              <p style="color: #A09278; font-size: 12px; line-height: 1.5;">
+                If you didn't request this, you can safely ignore this email.<br/>
+                Or copy this link: <a href="${resetUrl}" style="color: #40916C;">${resetUrl}</a>
+              </p>
+              <hr style="border: none; border-top: 1px solid #E8D9C0; margin: 24px 0;"/>
+              <p style="color: #A09278; font-size: 11px; text-align: center;">Torts & Twirls India · Premium Bedsheets</p>
+            </div>
+          `,
+        });
+      } catch (emailErr) {
+        // Log error but don't fail the request — token is already saved
+        console.error('Failed to send password reset email:', emailErr.message);
+      }
     } else {
       // Dev mode: log to console
       console.log('🔑 Password reset link:', resetUrl);

@@ -4,7 +4,7 @@ const {
   createProduct, updateProduct, deleteProduct,
   getAllOrders, getOrderById, updateOrderStatus, updateShippingDetails,
   getAllUsers, getUserDetail, updateUserRole, toggleUserStatus, adminResetUserPassword,
-  getDashboardStats,
+  getDashboardStats, processReturn,
 } = require('../controllers/adminController');
 const { protect, admin } = require('../middleware/auth');
 
@@ -24,6 +24,7 @@ router.get('/orders',                    getAllOrders);
 router.get('/orders/:id',                getOrderById);
 router.put('/orders/:id/status',         updateOrderStatus);
 router.put('/orders/:id/shipping',       updateShippingDetails);
+router.patch('/orders/:id/return',       processReturn);
 
 // ── Users ──
 router.get  ('/users',                         getAllUsers);

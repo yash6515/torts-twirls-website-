@@ -110,7 +110,7 @@ const ResetPasswordPage = () => {
     <div className="min-h-screen bg-cream flex overflow-hidden">
       {/* Left panel — decorative */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col items-center justify-center"
-        style={{ background: 'linear-gradient(155deg, #4A3728 0%, #2C2420 100%)' }}>
+        style={{ background: 'linear-gradient(155deg, #1B4332 0%, #0D2B1C 100%)' }}>
 
         <div className="absolute inset-0 opacity-10">
           {Array.from({ length: 8 }).map((_, i) => (

@@ -213,7 +213,7 @@ const CheckoutPage = () => {
             contact: deliveryAddress.phone,
             email: user?.email,
           },
-          theme: { color: '#4A3728' },
+          theme: { color: '#1B4332' },
           modal: {
             ondismiss: () => {
               toast.info('Payment cancelled. Your order is saved.');

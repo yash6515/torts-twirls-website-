@@ -93,4 +93,33 @@ const updateOrderPayment = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, getMyOrders, getOrderById, updateOrderPayment };
+const requestReturn = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
+
+    if (order.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ success: false, message: 'Not authorized' });
+    }
+
+    if (order.status !== 'delivered') {
+      return res.status(400).json({ success: false, message: 'Only delivered orders can be returned' });
+    }
+
+    if (order.returnStatus !== 'none') {
+      return res.status(400).json({ success: false, message: 'Return already requested for this order' });
+    }
+
+    const { reason } = req.body;
+    order.returnStatus = 'pending';
+    order.returnReason = reason || '';
+    order.returnRequestedAt = new Date();
+    await order.save();
+
+    res.json({ success: true, order, message: 'Return request submitted' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createOrder, getMyOrders, getOrderById, updateOrderPayment, requestReturn };

@@ -16,9 +16,9 @@ const StatCard = ({ label, value, icon, delta, color, index }) => {
   useEffect(() => { setTimeout(() => setShow(true), index * 100); }, [index]);
 
   return (
-    <div className={`bg-white rounded-2xl shadow-card p-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-card-hover hover:-translate-y-1 ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+    <div className={`bg-white rounded-2xl shadow-card p-5 sm:p-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-card-hover hover:-translate-y-1 ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
       <div className="flex items-start justify-between mb-4">
-        <div className={`w-12 h-12 rounded-2xl ${color} flex items-center justify-center text-xl`}>
+        <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl ${color} flex items-center justify-center text-lg sm:text-xl`}>
           {icon}
         </div>
         {delta && (
@@ -27,8 +27,8 @@ const StatCard = ({ label, value, icon, delta, color, index }) => {
           </span>
         )}
       </div>
-      <p className="font-display text-[2rem] text-deep-brown leading-none mb-1">{value}</p>
-      <p className="text-sm font-sans text-taupe">{label}</p>
+      <p className="font-display text-[1.5rem] sm:text-[2rem] text-deep-brown leading-none mb-1">{value}</p>
+      <p className="text-xs sm:text-sm font-sans text-taupe">{label}</p>
     </div>
   );
 };
@@ -47,7 +47,7 @@ const AdminDashboard = () => {
   if (loading) return (
     <div className="min-h-screen bg-cream pt-[72px] flex items-center justify-center">
       <div className="text-center">
-        <div className="w-10 h-10 border-2 border-deep-brown border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <div className="w-10 h-10 border-2 border-rose-primary border-t-transparent rounded-full animate-spin mx-auto mb-3" />
         <p className="text-sm font-sans text-taupe">Loading dashboard...</p>
       </div>
     </div>
@@ -55,40 +55,40 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-cream pt-[72px]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 animate-fade-in">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10 animate-fade-in">
           <div>
-            <p className="text-[0.7rem] font-sans uppercase tracking-[0.2em] text-gold mb-1">Management Console</p>
-            <h1 className="font-display text-[2.2rem] text-deep-brown">Admin Dashboard</h1>
+            <p className="text-[0.7rem] font-sans uppercase tracking-[0.2em] text-rose-primary mb-1">Management Console</p>
+            <h1 className="font-display text-[1.8rem] sm:text-[2.2rem] text-deep-brown">Admin Dashboard</h1>
           </div>
-          <div className="flex gap-3">
-            <Link to="/admin/products/new" className="btn-primary text-sm py-2.5 px-5">
+          <div className="flex gap-2 sm:gap-3 flex-wrap">
+            <Link to="/admin/products/new" className="btn-primary text-xs sm:text-sm py-2.5 px-4 sm:px-5">
               + Add Product
             </Link>
-            <Link to="/admin/orders" className="btn-outline text-sm py-2.5 px-5">
+            <Link to="/admin/orders" className="btn-outline text-xs sm:text-sm py-2.5 px-4 sm:px-5">
               Orders →
             </Link>
           </div>
         </div>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
           <StatCard index={0} label="Total Orders" value={stats?.totalOrders?.toLocaleString() || '0'} icon="📦" color="bg-blue-50" delta="+12%" />
           <StatCard index={1} label="Total Revenue" value={`₹${((stats?.totalRevenue || 0) / 1000).toFixed(1)}k`} icon="💰" color="bg-emerald-50" delta="+8%" />
-          <StatCard index={2} label="Active Products" value={stats?.totalProducts || 0} icon="🛏️" color="bg-purple-50" />
+          <StatCard index={2} label="Active Products" value={stats?.totalProducts || 0} icon="🎂" color="bg-purple-50" />
           <StatCard index={3} label="Customers" value={stats?.totalUsers || 0} icon="👤" color="bg-amber-50" delta="+24%" />
         </div>
 
         {/* Monthly revenue bar chart */}
         {stats?.monthlyRevenue?.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-card p-6 mb-8 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-card p-5 sm:p-6 mb-6 sm:mb-8 animate-fade-in">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="font-serif text-xl text-deep-brown">Monthly Revenue</h2>
+              <h2 className="font-serif text-lg sm:text-xl text-deep-brown">Monthly Revenue</h2>
               <span className="text-xs font-sans text-taupe bg-cream px-3 py-1.5 rounded-full">Last 6 months</span>
             </div>
-            <div className="flex items-end gap-3 h-32">
+            <div className="flex items-end gap-2 sm:gap-3 h-32">
               {[...stats.monthlyRevenue].reverse().map((m, i) => {
                 const maxRev = Math.max(...stats.monthlyRevenue.map(x => x.revenue));
                 const pct = maxRev > 0 ? (m.revenue / maxRev) * 100 : 0;
@@ -100,7 +100,7 @@ const AdminDashboard = () => {
                         ₹{(m.revenue / 1000).toFixed(1)}k
                       </span>
                       <div
-                        className="w-full bg-gradient-to-t from-deep-brown to-warm-gray rounded-t-lg transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:from-gold hover:to-gold-light"
+                        className="w-full bg-gradient-to-t from-rose-primary to-rose-light rounded-t-lg transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:from-chocolate hover:to-warm-gray"
                         style={{ height: `${Math.max(pct, 4)}%`, minHeight: '4px', transitionDelay: `${i * 0.08}s` }}
                       />
                     </div>
@@ -112,12 +112,12 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Recent orders */}
-          <div className="bg-white rounded-2xl shadow-card p-6 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-card p-5 sm:p-6 animate-fade-in">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="font-serif text-xl text-deep-brown">Recent Orders</h2>
-              <Link to="/admin/orders" className="text-xs font-sans text-gold hover:text-deep-brown transition-colors link-underline">
+              <h2 className="font-serif text-lg sm:text-xl text-deep-brown">Recent Orders</h2>
+              <Link to="/admin/orders" className="text-xs font-sans text-rose-primary hover:text-deep-brown transition-colors link-underline">
                 View all →
               </Link>
             </div>
@@ -128,7 +128,7 @@ const AdminDashboard = () => {
                   className="flex items-center justify-between py-3 border-b border-sand/50 last:border-0 hover:bg-cream/50 px-2 -mx-2 rounded-xl transition-colors group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-sand to-light-beige rounded-xl flex items-center justify-center text-xs font-sans font-semibold text-deep-brown flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-br from-rose-mist to-light-beige rounded-xl flex items-center justify-center text-xs font-sans font-semibold text-deep-brown flex-shrink-0">
                       #{(i + 1).toString().padStart(2, '0')}
                     </div>
                     <div>
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
                       <p className="text-[0.7rem] text-taupe font-sans">{new Date(order.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</p>
                     </div>
                   </div>
-                  <div className="text-right flex items-center gap-3">
+                  <div className="text-right flex items-center gap-2 sm:gap-3">
                     <span className={`text-[0.68rem] px-2.5 py-1 rounded-full font-sans capitalize ${statusStyles[order.status] || 'bg-sand text-warm-gray'}`}>
                       {order.status}
                     </span>
@@ -150,10 +150,10 @@ const AdminDashboard = () => {
           </div>
 
           {/* Top products */}
-          <div className="bg-white rounded-2xl shadow-card p-6 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-card p-5 sm:p-6 animate-fade-in">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="font-serif text-xl text-deep-brown">Top Products</h2>
-              <Link to="/admin/products" className="text-xs font-sans text-gold hover:text-deep-brown transition-colors link-underline">
+              <h2 className="font-serif text-lg sm:text-xl text-deep-brown">Top Products</h2>
+              <Link to="/admin/products" className="text-xs font-sans text-rose-primary hover:text-deep-brown transition-colors link-underline">
                 Manage →
               </Link>
             </div>
@@ -165,7 +165,7 @@ const AdminDashboard = () => {
                     src={product.images?.[0]}
                     alt={product.name}
                     className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
-                    onError={e => e.target.src = 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=100'}
+                    onError={e => e.target.src = 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=100'}
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-sans font-medium text-deep-brown truncate">{product.name}</p>
@@ -187,21 +187,22 @@ const AdminDashboard = () => {
         </div>
 
         {/* Quick links */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 mt-6">
           {[
-            { label: 'All Products', path: '/admin/products', icon: '🛏️', desc: 'Manage inventory' },
+            { label: 'All Products', path: '/admin/products', icon: '🎂', desc: 'Manage inventory' },
             { label: 'All Orders', path: '/admin/orders', icon: '📦', desc: 'Update statuses' },
+            { label: 'Manage Users', path: '/admin/users', icon: '👤', desc: 'Roles & access' },
             { label: 'Add Product', path: '/admin/products/new', icon: '➕', desc: 'Create listing' },
             { label: 'View Store', path: '/products', icon: '🏪', desc: 'Customer view' },
           ].map(item => (
             <Link
               key={item.path}
               to={item.path}
-              className="bg-white rounded-2xl shadow-card p-5 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 group"
+              className="bg-white rounded-2xl shadow-card p-4 sm:p-5 hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 group"
             >
-              <span className="text-2xl block mb-2.5 group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
-              <p className="text-sm font-sans font-medium text-deep-brown">{item.label}</p>
-              <p className="text-xs font-sans text-taupe mt-0.5">{item.desc}</p>
+              <span className="text-xl sm:text-2xl block mb-2 sm:mb-2.5 group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
+              <p className="text-xs sm:text-sm font-sans font-medium text-deep-brown">{item.label}</p>
+              <p className="text-[0.65rem] sm:text-xs font-sans text-taupe mt-0.5">{item.desc}</p>
             </Link>
           ))}
         </div>

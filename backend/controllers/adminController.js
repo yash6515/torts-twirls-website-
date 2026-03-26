@@ -318,9 +318,42 @@ const getDashboardStats = async (req, res) => {
   }
 };
 
+/* ─── ORDER RETURN MANAGEMENT ─── */
+
+const processReturn = async (req, res) => {
+  try {
+    const { action, adminNotes } = req.body; // action: 'approved' | 'rejected'
+    if (!['approved', 'rejected'].includes(action)) {
+      return res.status(400).json({ success: false, message: 'Action must be approved or rejected' });
+    }
+
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
+
+    if (order.returnStatus !== 'pending') {
+      return res.status(400).json({ success: false, message: 'No pending return request for this order' });
+    }
+
+    order.returnStatus = action;
+    order.returnProcessedAt = new Date();
+    if (adminNotes) order.adminNotes = adminNotes;
+
+    if (action === 'approved') {
+      order.status = 'refunded';
+    }
+
+    await order.save();
+
+    const populated = await Order.findById(order._id).populate('user', 'name email phone');
+    res.json({ success: true, order: populated, message: `Return ${action}` });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
 module.exports = {
   createProduct, updateProduct, deleteProduct,
   getAllOrders, getOrderById, updateOrderStatus, updateShippingDetails,
   getAllUsers, getUserDetail, updateUserRole, toggleUserStatus, adminResetUserPassword,
-  getDashboardStats,
+  getDashboardStats, processReturn,
 };

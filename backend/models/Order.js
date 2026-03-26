@@ -63,6 +63,15 @@ const orderSchema = new mongoose.Schema({
     enum: ['pending', 'confirmed', 'processing', 'shipped', 'out_for_delivery', 'delivered', 'cancelled', 'refunded'],
   },
 
+  returnStatus: {
+    type: String,
+    enum: ['none', 'pending', 'approved', 'rejected'],
+    default: 'none',
+  },
+  returnReason:    { type: String, default: '' },
+  returnRequestedAt: { type: Date, default: null },
+  returnProcessedAt: { type: Date, default: null },
+
   customerNotes:  { type: String, default: '' },  // from customer at checkout
   adminNotes:     { type: String, default: '' },  // internal admin notes
 }, { timestamps: true });

@@ -54,7 +54,7 @@ const RegisterPage = () => {
     <div className="min-h-screen bg-cream flex overflow-hidden">
       {/* Left decorative */}
       <div className="hidden lg:flex lg:w-2/5 relative overflow-hidden items-center justify-center"
-        style={{ background: 'linear-gradient(155deg, #2C2420 0%, #4A3728 100%)' }}>
+        style={{ background: 'linear-gradient(155deg, #0D2B1C 0%, #1B4332 100%)' }}>
         <div className="absolute w-80 h-80 bg-gold/10 rounded-full blur-3xl blob top-1/3 -right-16" />
         <div className="absolute w-56 h-56 bg-sage/15 rounded-full blur-3xl blob-delay bottom-1/3 -left-10" />
         <div className="relative z-10 px-10 text-center">
