@@ -55,16 +55,8 @@ const LoginPage = () => {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col justify-between p-14 xl:p-20 w-full">
-          {/* Logo top */}
-          <div className="flex items-center gap-3">
-            <div className="w-14 h-16 flex-shrink-0 overflow-hidden">
-              <img src="/logo.svg" alt="T&T" className="w-full h-full object-contain drop-shadow-lg" />
-            </div>
-            <div>
-              <p className="font-display text-cream text-lg italic leading-tight">Torts <span className="text-accent-gold">&amp;</span> Twirls</p>
-              <p className="text-cream/40 text-[0.6rem] font-sans uppercase tracking-[0.2em]">India</p>
-            </div>
-          </div>
+          {/* Spacer top */}
+          <div />
 
           {/* Center quote */}
           <div className="max-w-md">
@@ -120,16 +112,6 @@ const LoginPage = () => {
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          {/* Logo for mobile */}
-          <Link to="/" className="flex items-center gap-3 mb-10">
-            <div className="w-11 h-13 flex-shrink-0 overflow-hidden">
-              <img src="/logo.svg" alt="T&T" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-display text-2xl text-deep-brown italic tracking-wide">
-              Torts <span className="text-accent-gold">&amp;</span> Twirls
-            </span>
-          </Link>
-
           <h1 className="font-display text-[2.2rem] text-deep-brown mb-2 leading-tight">
             Welcome back
           </h1>
@@ -143,22 +125,15 @@ const LoginPage = () => {
               <label className="block text-[0.72rem] font-sans font-medium text-deep-brown uppercase tracking-[0.12em] mb-2">
                 Email Address
               </label>
-              <div className="relative group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-taupe group-focus-within:text-rose-primary transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                  </svg>
-                </div>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  className="input-luxury pl-12"
-                  required
-                />
-              </div>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="you@example.com"
+                className="input-luxury"
+                required
+              />
             </div>
 
             {/* Password */}
@@ -171,19 +146,14 @@ const LoginPage = () => {
                   Forgot password?
                 </Link>
               </div>
-              <div className="relative group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-taupe group-focus-within:text-rose-primary transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                  </svg>
-                </div>
+              <div className="relative">
                 <input
                   type={showPw ? 'text' : 'password'}
                   name="password"
                   value={form.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="input-luxury pl-12 pr-14"
+                  className="input-luxury pr-12"
                   required
                 />
                 <button
