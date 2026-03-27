@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
-
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
 const sendEmail = async ({ to, subject, html }) => {
   // Remove spaces from app password (Gmail formats them as "xxxx xxxx xxxx xxxx")
   const smtpPass = (process.env.SMTP_PASS || '').replace(/\s/g, '');
